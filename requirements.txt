@@ -1,0 +1,4 @@
+flask
+pyembroidery
+Pillow
+gunicorn

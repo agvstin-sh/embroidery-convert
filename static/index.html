@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embroidery Converter | Premium Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <main class="container">
+        <header>
+            <h1>Embroidery<span class="highlight">Convert</span></h1>
+            <p data-i18n="header-subtitle">Transform your embroidery designs instantly.</p>
+        </header>
+
+        <div class="converter-card">
+            <div class="drop-zone" id="dropZone">
+                <div class="icon-container">
+                    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="17 8 12 3 7 8"></polyline>
+                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="dropzone-title">Drag & Drop your file here</h3>
+                <p class="subtext" data-i18n="dropzone-subtitle">or click to browse (.pes, .dst, .jef, .exp, etc.)</p>
+                <input type="file" id="fileInput" accept=".pes,.dst,.jef,.exp,.vp3,.xxx,.pec,.u01" hidden>
+            </div>
+
+            <div class="file-info hidden" id="fileInfo">
+                <div class="file-details">
+                    <span class="file-icon">📄</span>
+                    <span class="filename" id="filenameDisplay">design.pes</span>
+                </div>
+                <button class="remove-btn" id="removeBtn">✕</button>
+            </div>
+
+            <div id="previewContainer" class="preview-container hidden"
+                style="text-align: center; margin-bottom: 1.5rem;">
+                <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem;" data-i18n="preview-label">Design
+                    Preview:</p>
+                <img id="previewImage" src="" alt="Embroidery Preview"
+                    style="max-width: 100%; max-height: 200px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2);">
+                <div id="previewLoader" class="loader hidden"
+                    style="border-color: #8b5cf6; border-top-color: transparent;"></div>
+
+                <div class="unit-toggle-container hidden" id="unitToggleContainer">
+                    <span class="toggle-label">MM</span>
+                    <label class="switch">
+                        <input type="checkbox" id="unitToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <span class="toggle-label">IN</span>
+                </div>
+
+                <div id="statsGrid" class="stats-grid hidden">
+                    <div class="stat-item">
+                        <span class="stat-value" id="statStitches">-</span>
+                        <span class="stat-label" data-i18n="stat-stitches">Stitches</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statColors">-</span>
+                        <span class="stat-label" data-i18n="stat-colors">Colors</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statWidth">-</span>
+                        <span class="stat-label" data-i18n="stat-width">Width</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value" id="statHeight">-</span>
+                        <span class="stat-label" data-i18n="stat-height">Height</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <label for="formatSelect" data-i18n="convert-label">Convert to:</label>
+                <div class="select-wrapper">
+                    <select id="formatSelect">
+                        <option value="dst">DST (Tajima)</option>
+                        <option value="pes">PES (Brother)</option>
+                        <option value="jef">JEF (Janome)</option>
+                        <option value="exp">EXP (Melco)</option>
+                        <option value="vp3">VP3 (Husqvarna)</option>
+                        <option value="xxx">XXX (Singer)</option>
+                        <option value="csv">CSV (Analysis)</option>
+                    </select>
+                </div>
+                <div id="colorWarning" class="warning-box hidden">
+                    <span class="warning-icon">⚠️</span>
+                    <p class="warning-text" data-i18n="color-warning">Note: Converting to DST may lose exact color
+                        information (it uses standard color stops).</p>
+                </div>
+            </div>
+
+            <button id="convertBtn" class="convert-btn" disabled>
+                <span data-i18n="convert-btn">Convert File</span>
+                <div class="loader hidden"></div>
+            </button>
+
+            <a id="downloadBtn" class="convert-btn hidden"
+                style="background: #22c55e; margin-top: 10px; text-align: center; text-decoration: none; display: block;"
+                href="#" download>
+                <span data-i18n="download-btn">Download Converted File</span>
+            </a>
+
+            <div id="statusMessage" class="status-message"></div>
+        </div>
+
+        <footer>
+            <p><span data-i18n="footer">Powered by</span> <a href="#" target="_blank">PyEmbroidery</a></p>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
