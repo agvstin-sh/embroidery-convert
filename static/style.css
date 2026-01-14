@@ -1,12 +1,33 @@
 :root {
-    --bg-color: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --primary-color: #8b5cf6;
-    --primary-hover: #7c3aed;
-    --text-color: #f8fafc;
-    --text-muted: #94a3b8;
-    --border-color: rgba(148, 163, 184, 0.2);
-    --glow-color: rgba(139, 92, 246, 0.3);
+    /* Gruvbox Dark Palette */
+    --gruv-bg-0: #32302f;
+    /* Dark Soft */
+    --gruv-bg-1: #3c3836;
+    --gruv-bg-2: #504945;
+    --gruv-fg-0: #fbf1c7;
+    --gruv-fg-1: #ebdbb2;
+    --gruv-fg-2: #a89984;
+    --gruv-red: #cc241d;
+    --gruv-red-bright: #fb4934;
+    --gruv-orange: #d65d0e;
+    --gruv-orange-bright: #fe8019;
+    --gruv-yellow: #d79921;
+    --gruv-green: #98971a;
+    --gruv-aqua: #689d6a;
+    --gruv-blue: #458588;
+    --gruv-purple: #b16286;
+
+    /* Semantic Mappings */
+    --bg-color: var(--gruv-bg-0);
+    --card-bg: var(--gruv-bg-1);
+    --primary-color: var(--gruv-orange-bright);
+    /* Use bright orange for checked items/buttons */
+    --primary-hover: var(--gruv-orange);
+    --text-color: var(--gruv-fg-1);
+    --text-muted: var(--gruv-fg-2);
+    --border-color: var(--gruv-bg-2);
+    --glow-color: rgba(254, 128, 25, 0.15);
+    /* Bright orange glow */
 }
 
 * {
@@ -29,17 +50,7 @@ body {
     position: relative;
 }
 
-.background-glow {
-    position: absolute;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: -1;
-    pointer-events: none;
-}
+
 
 .container {
     width: 100%;
@@ -70,11 +81,10 @@ h1 {
 }
 
 .highlight {
-    background: linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 100%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+    color: var(--primary-color);
+    /* Solid color instead of gradient for clarity in retro theme */
+    background: none;
+    -webkit-text-fill-color: initial;
 }
 
 header p {
@@ -84,29 +94,33 @@ header p {
 
 .converter-card {
     background: var(--card-bg);
-    backdrop-filter: blur(20px);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 1.5rem;
+    /* No backdrop blur needed for solid bg, but kept if we want glass effect later. */
+    border: 2px solid var(--border-color);
+    /* Thicker border for retro feel */
+    border-radius: 8px;
+    /* Sharper corners */
+    padding: 0.5rem;
+    /* Reduced padding to bring dashed line closer to edge */
     width: 100%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    /* No shadow for flat look */
     transition: transform 0.3s ease;
 }
 
 .drop-zone {
     border: 2px dashed var(--border-color);
-    border-radius: 16px;
+    border-radius: 8px;
     padding: 3rem 1.5rem;
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(0, 0, 0, 0.2);
+    /* Darker tint for dark mode */
 }
 
 .drop-zone:hover,
 .drop-zone.dragover {
     border-color: var(--primary-color);
-    background: rgba(139, 92, 246, 0.05);
+    background: rgba(214, 93, 14, 0.05);
 }
 
 .icon-container {
@@ -128,9 +142,10 @@ header p {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--gruv-bg-0);
+    /* Light background for item */
     padding: 0.5rem 0.75rem;
-    border-radius: 12px;
+    border-radius: 6px;
     margin-bottom: 0.5rem;
     border: 1px solid var(--border-color);
     animation: fadeIn 0.3s ease-out;
@@ -167,7 +182,7 @@ header p {
 }
 
 .remove-btn:hover {
-    color: #ef4444;
+    color: var(--gruv-red);
 }
 
 .controls {
@@ -211,7 +226,8 @@ header p {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--card-bg);
+    background-color: var(--gruv-bg-2);
+    /* Darker beige for off state */
     border: 1px solid var(--border-color);
     transition: .4s;
     border-radius: 20px;
@@ -224,19 +240,21 @@ header p {
     width: 14px;
     left: 2px;
     bottom: 2px;
-    background-color: var(--text-muted);
+    background-color: var(--gruv-bg-1);
+    /* Handle color matches card background */
     transition: .4s;
     border-radius: 50%;
 }
 
 input:checked+.slider {
-    background-color: rgba(139, 92, 246, 0.2);
+    background-color: var(--primary-color);
     border-color: var(--primary-color);
 }
 
 input:checked+.slider:before {
     transform: translateX(16px);
-    background-color: var(--primary-color);
+    background-color: var(--gruv-fg-0);
+    /* Light foreground on active */
 }
 
 .stats-grid {
@@ -248,9 +266,9 @@ input:checked+.slider:before {
 }
 
 .stat-item {
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--gruv-bg-0);
     border: 1px solid var(--border-color);
-    border-radius: 12px;
+    border-radius: 6px;
     padding: 0.75rem;
     display: flex;
     flex-direction: column;
@@ -280,15 +298,17 @@ input:checked+.slider:before {
 
 .warning-box {
     margin-top: 1rem;
-    background: rgba(234, 179, 8, 0.1);
-    border: 1px solid rgba(234, 179, 8, 0.3);
-    border-radius: 8px;
+    background: rgba(215, 153, 33, 0.1);
+    /* Yellow tint */
+    border: 1px solid var(--gruv-yellow);
+    border-radius: 6px;
     padding: 0.75rem;
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
     font-size: 0.85rem;
-    color: #fde047;
+    color: var(--gruv-yellow);
+    /* Darker yellow text */
     animation: fadeIn 0.3s ease-out;
 }
 
@@ -307,9 +327,10 @@ input:checked+.slider:before {
 select {
     width: 100%;
     appearance: none;
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
+    background: var(--gruv-bg-0);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    /* Sharper */
     padding: 1rem;
     color: var(--text-color);
     font-family: inherit;
@@ -336,17 +357,20 @@ select:focus {
 
 .convert-btn {
     width: 100%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    border: none;
+    background: var(--primary-color);
+    /* Solid color */
+    border: 2px solid transparent;
     padding: 1rem;
-    border-radius: 12px;
-    color: white;
-    font-weight: 600;
+    border-radius: 8px;
+    color: var(--gruv-bg-0);
+    /* Dark text on bright orange button */
+    font-weight: 800;
     font-size: 1.1rem;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    /* Removed 3D shadow */
 }
 
 .convert-btn:disabled {
@@ -357,7 +381,7 @@ select:focus {
 
 .convert-btn:not(:disabled):hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px -5px rgba(139, 92, 246, 0.5);
+    background: var(--primary-hover);
 }
 
 .hidden {
@@ -384,20 +408,20 @@ select:focus {
 }
 
 .status-error {
-    color: #ef4444;
+    color: var(--gruv-red);
 }
 
 .status-success {
-    color: #22c55e;
+    color: var(--gruv-green);
 }
 
 /* Very simple loader */
 .loader {
     width: 20px;
     height: 20px;
-    border: 3px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(0, 0, 0, 0.1);
     border-radius: 50%;
-    border-top-color: white;
+    border-top-color: var(--primary-color);
     animation: spin 1s ease-in-out infinite;
     display: inline-block;
     vertical-align: middle;
@@ -444,11 +468,13 @@ footer a {
 
 .right-panel {
     background: rgba(0, 0, 0, 0.2);
-    border-radius: 16px;
+    /* Darker panel for contrast */
+    border-radius: 8px;
     padding: 1rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: 1px solid var(--border-color);
 }
 
 .panel-separator {
