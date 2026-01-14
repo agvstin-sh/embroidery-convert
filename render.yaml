@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: embroidery-converter
+    env: docker
+    plan: free
+    branch: main
+    repo: https://github.com/agvstin-sh/embroidery-convert # Update if repo name changes
+    region: oregon # or frankfurt
+    envVars:
+      - key: PORT
+        value: 5000
+    autoDeploy: true

@@ -29,24 +29,29 @@ Primero necesitamos subir tu código a un repositorio de GitHub.
     git push -u origin main
     ```
 
-## 2. Desplegar en Render (PaaS)
+## 2. Desplegar en Render (Opción A: Automática con Blueprint)
 
-Render detectará automáticamente nuestro `Dockerfile` y se encargará de todo.
+Como he añadido un archivo `render.yaml` al proyecto, esto es lo más fácil:
 
-1.  Crea una cuenta en [render.com](https://render.com).
-2.  En el Dashboard, haz clic en **New +** y selecciona **Web Service**.
-3.  Selecciona **Build and deploy from a Git repository**.
-4.  Conecta tu cuenta de GitHub y selecciona el repo `embroidery-converter` que acabas de subir.
-5.  **Configuración**:
-    *   **Name**: `embroidery-app` (será parte de tu URL).
-    *   **Environment**: `Docker` (Render debería detectarlo solo).
-    *   **Region**: La que prefieras (ej: Frankfurt o Oregon).
-    *   **Branch**: `main`.
-    *   **Plan**: Free (Gratis).
+1.  En [Render Dashboard](https://dashboard.render.com/), haz clic en **New +** > **Blueprint**.
+2.  Conecta tu repositorio `embroidery-converter`.
+3.  Render detectará la configuración automáticamente.
+4.  Haz clic en **Apply**. ¡Y listo!
 
-6.  Haz clic en **Create Web Service**.
+## 3. Desplegar en Render (Opción B: Manual)
 
-## 3. ¡Listo!
+Si prefieres hacerlo a mano:
+
+1.  Haz clic en **New +** > **Web Service**.
+2.  Conecta tu repositorio.
+3.  Configuración:
+    *   **Name**: `embroidery-app`
+    *   **Environment**: `Docker`
+    *   **Region**: Oregon o Frankfurt.
+    *   **Plan**: Free.
+4.  Haz clic en **Create Web Service**.
+
+## 4. ¡Listo!
 
 Render empezará a construir tu aplicación (puede tardar unos minutos la primera vez).
 Cuando termine, verás un mensaje de "Live" y una URL tipo:
