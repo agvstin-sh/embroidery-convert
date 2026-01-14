@@ -11,6 +11,10 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max upload size
 def index():
     return app.send_static_file('index.html')
 
+@app.route('/es')
+def index_es():
+    return app.send_static_file('index_es.html')
+
 @app.route('/convert', methods=['POST'])
 def convert_file():
     if 'file' not in request.files:

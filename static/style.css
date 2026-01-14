@@ -61,16 +61,42 @@ body {
     align-items: center;
     gap: 1rem;
     margin: auto;
+    margin: auto;
     transition: max-width 0.5s ease;
+    /* position: relative; Removed to allow lang switch to be relative to body */
 }
 
-.container.expanded {
-    max-width: 900px;
-    /* Ensures centering but allows scroll */
+.lang-switch {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 0.9rem;
+    z-index: 100;
+}
+
+.lang-switch a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4rem;
+    transition: all 0.2s;
+    background: rgba(255, 255, 255, 0.05);
+    /* Very subtle */
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lang-switch a:hover {
+    color: var(--primary-color);
+    background: var(--card-bg);
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
 }
 
 header {
     text-align: center;
+    margin-top: 1rem;
 }
 
 h1 {

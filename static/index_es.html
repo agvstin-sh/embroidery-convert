@@ -1,51 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Embroidery Converter | Free Online PES, DST, JEF, EXP Tool</title>
-<meta name="description"
-    content="Free online embroidery file converter. Convert PES, DST, JEF, EXP, VP3, XXX and more. View embroidery designs and check stitch counts instantly.">
-<meta name="keywords"
-    content="embroidery converter, pes converter, dst converter, embroidery viewer, free embroidery tools, convert embroidery files">
-<link rel="canonical" href="https://embroidery-convert.com/" />
-<link rel="alternate" hreflang="es" href="https://embroidery-convert.com/es" />
-<link rel="alternate" hreflang="en" href="https://embroidery-convert.com/" />
-<link rel="alternate" hreflang="x-default" href="https://embroidery-convert.com/" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Convertidor de Bordados | Herramienta Online Gratis PES, DST, JEF, EXP</title>
+    <meta name="description"
+        content="Convertidor gratuito de archivos de bordado online. Convierte PES, DST, JEF, EXP, VP3, XXX y más. Visualiza diseños de bordado y cuenta puntadas al instante.">
+    <meta name="keywords"
+        content="convertidor bordados, convertir pes, convertir dst, visor bordados, herramientas bordado gratis, archivos bordado">
+    <link rel="canonical" href="https://embroidery-convert.com/es" />
+    <link rel="alternate" hreflang="es" href="https://embroidery-convert.com/es" />
+    <link rel="alternate" hreflang="en" href="https://embroidery-convert.com/" />
+    <link rel="alternate" hreflang="x-default" href="https://embroidery-convert.com/" />
 
-<!-- Open Graph / Facebook -->
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://embroidery-convert.com/">
-<meta property="og:title" content="Embroidery Converter | Free Online Tool">
-<meta property="og:description"
-    content="Convert and view embroidery files instantly. Support for PES, DST, JEF, EXP and more.">
-<meta property="og:image" content="https://embroidery-convert.com/og-image.jpg">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://embroidery-convert.com/es">
+    <meta property="og:title" content="Convertidor de Bordados | Herramienta Online Gratis">
+    <meta property="og:description"
+        content="Convierte y visualiza archivos de bordado al instante. Soporte para PES, DST, JEF, EXP y más.">
+    <meta property="og:image" content="https://embroidery-convert.com/og-image.jpg">
 
-<!-- Twitter -->
-<meta property="twitter:card" content="summary_large_image">
-<meta property="twitter:url" content="https://embroidery-convert.com/">
-<meta property="twitter:title" content="Embroidery Converter | Free Online Tool">
-<meta property="twitter:description"
-    content="Convert and view embroidery files instantly. Support for PES, DST, JEF, EXP and more.">
-<meta property="twitter:image" content="https://embroidery-convert.com/og-image.jpg">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://embroidery-convert.com/es">
+    <meta property="twitter:title" content="Convertidor de Bordados | Herramienta Online Gratis">
+    <meta property="twitter:description"
+        content="Convierte y visualiza archivos de bordado al instante. Soporte para PES, DST, JEF, EXP y más.">
+    <meta property="twitter:image" content="https://embroidery-convert.com/og-image.jpg">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="background-glow"></div>
 
     <div class="lang-switch">
-        <a href="/es" title="Ver en Español">🇪🇸 Español</a>
+        <a href="/" title="View in English">🇺🇸 English</a>
     </div>
 
     <main class="container">
         <header>
             <h1>Embroidery<span class="highlight">Convert</span></h1>
-            <p data-i18n="header-subtitle">Transform your embroidery designs instantly.</p>
+            <p data-i18n="header-subtitle">Transforma tus diseños de bordado al instante.</p>
         </header>
 
         <div class="converter-card">
@@ -58,8 +59,9 @@
                         <line x1="12" y1="3" x2="12" y2="15"></line>
                     </svg>
                 </div>
-                <h3 data-i18n="dropzone-title">Drag & Drop your file here</h3>
-                <p class="subtext" data-i18n="dropzone-subtitle">or click to browse (.pes, .dst, .jef, .exp, etc.)</p>
+                <h3 data-i18n="dropzone-title">Arrastra y suelta tu archivo aquí</h3>
+                <p class="subtext" data-i18n="dropzone-subtitle">o haz clic para buscar (.pes, .dst, .jef, .exp, etc.)
+                </p>
                 <input type="file" id="fileInput" accept=".pes,.dst,.jef,.exp,.vp3,.xxx,.pec,.u01" hidden>
             </div>
 
@@ -76,7 +78,7 @@
                     <hr class="panel-separator">
 
                     <div class="controls" id="controls">
-                        <label for="formatSelect" data-i18n="convert-label">Convert to:</label>
+                        <label for="formatSelect" data-i18n="convert-label">Convertir a:</label>
                         <div class="select-wrapper">
                             <select id="formatSelect">
                                 <option value="pes" selected>PES (Brother)</option>
@@ -85,28 +87,27 @@
                                 <option value="exp">EXP (Melco)</option>
                                 <option value="vp3">VP3 (Husqvarna)</option>
                                 <option value="xxx">XXX (Singer)</option>
-                                <option value="csv">CSV (Analysis)</option>
+                                <option value="csv">CSV (Análisis)</option>
                             </select>
                         </div>
                         <div id="colorWarning" class="warning-box hidden">
                             <span class="warning-icon">⚠️</span>
-                            <p class="warning-text" data-i18n="color-warning">Note: Converting to DST may lose exact
-                                color
-                                information (it uses standard color stops).</p>
+                            <p class="warning-text" data-i18n="color-warning">Nota: Convertir a DST puede perder
+                                información de color (usa la paleta estándar).</p>
                         </div>
                     </div>
 
                     <hr class="panel-separator">
 
                     <button id="convertBtn" class="convert-btn" disabled>
-                        <span data-i18n="convert-btn">Convert File</span>
+                        <span data-i18n="convert-btn">Convertir Archivo</span>
                         <div class="loader hidden"></div>
                     </button>
 
                     <a id="downloadBtn" class="convert-btn hidden"
                         style="background: #22c55e; margin-top: 10px; text-align: center; text-decoration: none; display: block;"
                         href="#" download>
-                        <span data-i18n="download-btn">Download Converted File</span>
+                        <span data-i18n="download-btn">Descargar Archivo Convertido</span>
                     </a>
 
                     <div id="statusMessage" class="status-message"></div>
@@ -116,8 +117,7 @@
                     <div id="previewContainer" class="preview-container"
                         style="text-align: center; margin-bottom: 1.5rem;">
                         <p style="font-size: 0.9rem; color: #94a3b8; margin-bottom: 0.5rem;" data-i18n="preview-label">
-                            Design
-                            Preview:</p>
+                            Vista Previa del Diseño:</p>
                         <canvas id="previewCanvas" width="400" height="400"
                             style="max-width: 100%; max-height: 400px; border-radius: 8px; border: 1px solid rgba(148, 163, 184, 0.2);"></canvas>
                         <div id="previewLoader" class="loader hidden"
@@ -135,19 +135,19 @@
                         <div id="statsGrid" class="stats-grid hidden">
                             <div class="stat-item">
                                 <span class="stat-value" id="statStitches">-</span>
-                                <span class="stat-label" data-i18n="stat-stitches">Stitches</span>
+                                <span class="stat-label" data-i18n="stat-stitches">Puntadas</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-value" id="statColors">-</span>
-                                <span class="stat-label" data-i18n="stat-colors">Colors</span>
+                                <span class="stat-label" data-i18n="stat-colors">Colores</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-value" id="statWidth">-</span>
-                                <span class="stat-label" data-i18n="stat-width">Width</span>
+                                <span class="stat-label" data-i18n="stat-width">Ancho</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-value" id="statHeight">-</span>
-                                <span class="stat-label" data-i18n="stat-height">Height</span>
+                                <span class="stat-label" data-i18n="stat-height">Alto</span>
                             </div>
                         </div>
                     </div>
@@ -156,9 +156,9 @@
         </div>
 
         <footer>
-            <p><span data-i18n="footer">Powered by</span> <a href="https://github.com/EmbroidePy/pyembroidery"
+            <p><span data-i18n="footer">Impulsado por</span> <a href="https://github.com/EmbroidePy/pyembroidery"
                     target="_blank">PyEmbroidery</a> <span style="margin: 0 15px; opacity: 0.5;">|</span> <span
-                    style="opacity: 0.8;">Designed by <b>&gt;_agvstin.dev</b></span></p>
+                    style="opacity: 0.8;">Diseñado por <b>&gt;_agvstin.dev</b></span></p>
         </footer>
     </main>
 

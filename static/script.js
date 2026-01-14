@@ -347,11 +347,18 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentLang = 'en';
 
     function detectLanguage() {
-        const userLang = navigator.language || navigator.userLanguage;
-        if (userLang.startsWith('es')) {
-            currentLang = 'es';
+        // Prioritize HTML lang attribute if present (for SEO pages)
+        const htmlLang = document.documentElement.lang;
+        if (htmlLang && (htmlLang === 'es' || htmlLang === 'en')) {
+            currentLang = htmlLang;
         } else {
-            currentLang = 'en';
+            // Fallback to browser language
+            const userLang = navigator.language || navigator.userLanguage;
+            if (userLang.startsWith('es')) {
+                currentLang = 'es';
+            } else {
+                currentLang = 'en';
+            }
         }
         applyTranslations();
     }
