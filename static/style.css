@@ -44,12 +44,17 @@ body {
 .container {
     width: 100%;
     max-width: 480px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2rem;
+    gap: 1rem;
     margin: auto;
+    transition: max-width 0.5s ease;
+}
+
+.container.expanded {
+    max-width: 900px;
     /* Ensures centering but allows scroll */
 }
 
@@ -81,8 +86,8 @@ header p {
     background: var(--card-bg);
     backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
-    border-radius: 24px;
-    padding: 2rem;
+    border-radius: 20px;
+    padding: 1.5rem;
     width: 100%;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     transition: transform 0.3s ease;
@@ -124,11 +129,12 @@ header p {
     align-items: center;
     justify-content: space-between;
     background: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
+    padding: 0.5rem 0.75rem;
     border-radius: 12px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     border: 1px solid var(--border-color);
     animation: fadeIn 0.3s ease-out;
+    font-size: 0.9rem;
 }
 
 .file-details {
@@ -139,7 +145,7 @@ header p {
 }
 
 .file-icon {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .filename {
@@ -165,8 +171,8 @@ header p {
 }
 
 .controls {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 /* Unit Toggle */
@@ -235,10 +241,10 @@ input:checked+.slider:before {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.75rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
     margin-top: 1rem;
-    text-align: left;
+    text-align: center;
 }
 
 .stat-item {
@@ -412,4 +418,43 @@ footer {
 footer a {
     color: var(--text-muted);
     text-decoration: underline;
+}
+
+/* Two Column Layout */
+.two-col-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    width: 100%;
+    animation: fadeIn 0.5s ease;
+}
+
+@media (min-width: 768px) {
+    .two-col-layout {
+        grid-template-columns: 0.8fr 1.5fr;
+    }
+}
+
+.left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: flex-start;
+}
+
+.right-panel {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 16px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.panel-separator {
+    border: 0;
+    height: 1px;
+    background: var(--border-color);
+    margin: 0.5rem 0;
+    width: 100%;
 }

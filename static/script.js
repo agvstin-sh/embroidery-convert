@@ -9,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const formatSelect = document.getElementById('formatSelect');
     const statusMessage = document.getElementById('statusMessage');
 
+    // Layout elements
+    const mainLayout = document.getElementById('mainLayout');
+    const container = document.querySelector('.container');
+
     let currentFile = null;
 
     // Drag and Drop Events
@@ -63,7 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // UI Updates
         dropZone.classList.add('hidden');
-        fileInfo.classList.remove('hidden');
+        mainLayout.classList.remove('hidden');
+        container.classList.add('expanded');
+
+        // Reset specific hidden states inside if needed
         convertBtn.disabled = false;
         downloadBtn.classList.add('hidden');
         statusMessage.textContent = '';
@@ -181,8 +188,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // UI Updates
         dropZone.classList.remove('hidden');
-        fileInfo.classList.add('hidden');
-        document.getElementById('previewContainer').classList.add('hidden'); // Hide preview
+        mainLayout.classList.add('hidden');
+        container.classList.remove('expanded');
 
         // Clear canvas
         const canvas = document.getElementById('previewCanvas');
