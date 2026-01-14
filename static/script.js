@@ -74,12 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function loadPreview(file) {
         const previewContainer = document.getElementById('previewContainer');
-        const previewImage = document.getElementById('previewImage');
+        const previewCanvas = document.getElementById('previewCanvas');
         const previewLoader = document.getElementById('previewLoader');
         const statsGrid = document.getElementById('statsGrid');
 
         previewContainer.classList.remove('hidden');
-        previewImage.classList.add('hidden');
+        previewCanvas.classList.add('hidden');
         statsGrid.classList.add('hidden');
         previewLoader.classList.remove('hidden');
 
@@ -96,24 +96,81 @@ document.addEventListener('DOMContentLoaded', () => {
                 const data = await response.json();
                 currentStats = data.stats;
 
-                // Update Image
-                previewImage.src = data.image;
+                if (data.mode === 'vector' && data.pattern) {
+                    drawPattern(data.pattern, data.bounds, previewCanvas);
+                } else if (data.image) {
+                    // Fallback for image-based (though we removed it from backend)
+                    // Implementation skipped as we moved to vector
+                }
 
                 // Update Stats
                 updateStatsDisplay();
 
-                previewImage.onload = () => {
-                    previewImage.classList.remove('hidden');
-                    statsGrid.classList.remove('hidden');
-                    if (unitToggleContainer) unitToggleContainer.classList.remove('hidden');
-                    previewLoader.classList.add('hidden');
-                };
+                previewCanvas.classList.remove('hidden');
+                statsGrid.classList.remove('hidden');
+                if (unitToggleContainer) unitToggleContainer.classList.remove('hidden');
+                previewLoader.classList.add('hidden');
+
             } else {
                 previewContainer.classList.add('hidden'); // Hide if fail
             }
         } catch (e) {
             console.error(e);
             previewContainer.classList.add('hidden');
+        }
+    }
+
+    function drawPattern(pattern, bounds, canvas) {
+        if (!pattern || !bounds) return;
+
+        const ctx = canvas.getContext('2d');
+        const width = canvas.width;
+        const height = canvas.height;
+
+        ctx.clearRect(0, 0, width, height);
+
+        // Calculate scale to fit
+        const [minX, minY, maxX, maxY] = bounds;
+        const patternWidth = maxX - minX;
+        const patternHeight = maxY - minY;
+
+        if (patternWidth === 0 || patternHeight === 0) return;
+
+        // Add 10% padding
+        const scaleX = (width * 0.9) / patternWidth;
+        const scaleY = (height * 0.9) / patternHeight;
+        const scale = Math.min(scaleX, scaleY);
+
+        // Center the design
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const pCenterX = (minX + maxX) / 2;
+        const pCenterY = (minY + maxY) / 2;
+
+        const offsetX = centerX - (pCenterX * scale);
+        const offsetY = centerY - (pCenterY * scale);
+
+        ctx.lineWidth = 1;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+
+        // Draw each color block
+        // Assuming pattern is array of objects { color: "#hex", stitches: [[x,y],...] }
+        for (const block of pattern) {
+            ctx.strokeStyle = block.color;
+            ctx.beginPath();
+
+            const stitches = block.stitches;
+            if (stitches.length > 0) {
+                const startStitch = stitches[0];
+                ctx.moveTo(startStitch[0] * scale + offsetX, startStitch[1] * scale + offsetY);
+
+                for (let i = 1; i < stitches.length; i++) {
+                    const s = stitches[i];
+                    ctx.lineTo(s[0] * scale + offsetX, s[1] * scale + offsetY);
+                }
+            }
+            ctx.stroke();
         }
     }
 
@@ -126,7 +183,12 @@ document.addEventListener('DOMContentLoaded', () => {
         dropZone.classList.remove('hidden');
         fileInfo.classList.add('hidden');
         document.getElementById('previewContainer').classList.add('hidden'); // Hide preview
-        document.getElementById('previewImage').src = '';
+
+        // Clear canvas
+        const canvas = document.getElementById('previewCanvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         convertBtn.disabled = true;
         downloadBtn.classList.add('hidden');
         statusMessage.textContent = '';

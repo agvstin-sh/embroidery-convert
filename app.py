@@ -122,28 +122,108 @@ def preview_file():
             except:
                 change_count = max(0, color_count - 1)
 
-            # --- Generate Preview Image ---
-            output_filename = "preview.png"
-            output_path = os.path.join(tmpdirname, output_filename)
-            pyembroidery.write(emb_pattern, output_path)
-
-            # Resize if Pillow available
-            try:
-                from PIL import Image
-                with Image.open(output_path) as img:
-                    img.thumbnail((400, 400))
-                    img.save(output_path, optimize=True)
-            except ImportError:
-                pass
-            except Exception as e:
-                print(f"Resize failed: {e}")
-
-            # Read image to base64
-            with open(output_path, "rb") as image_file:
-                encoded_string = base64.b64encode(image_file.read()).decode('utf-8')
+            # --- Generate Preview Data (Client-side rendering) ---
+            # Instead of generating an image server-side (slow), we send the stitch data
+            # to the client to render on a canvas (fast).
             
+            pattern_data = []
+            
+            # Iterate through blocks (colors)
+            for file_thread in emb_pattern.threadlist:
+                # Find stitches for this thread
+                # Note: pyembroidery structure can be complex, iterating blocks is safer if available
+                pass
+
+            # Alternative: Iterate stitches and group by color change
+            # This is more manual but reliable across formats
+            current_block = []
+            current_color_idx = 0
+            
+            # Get color hex codes
+            colors = []
+            print(f"Debug: Threadlist size: {len(emb_pattern.threadlist)}")
+            for i, t in enumerate(emb_pattern.threadlist):
+                try:
+                    vals = t.hex_color()
+                    print(f"Debug: Thread {i} color: {vals}")
+                    # hex_color() already returns string with # usually or just hex string
+                    # let's be safe. Output of debug script was #ff0000 so it includes #
+                    colors.append(vals)
+                except Exception as e:
+                    print(f"Debug: Thread {i} failed to get hex: {e}")
+                    colors.append('#000000')
+                
+            # If no colors defined (some formats), provide defaults
+            # Use standard Tajima 12-color cycle convention
+            if not colors:
+                 print("Debug: No colors found, using Tajima standard palette")
+                 colors = [
+                    "#0000FF", # 1. Blue
+                    "#00FF00", # 2. Green
+                    "#FF0000", # 3. Red
+                    "#FFFF00", # 4. Yellow
+                    "#FF00FF", # 5. Magenta
+                    "#00FFFF", # 6. Cyan
+                    "#FFA500", # 7. Orange
+                    "#800080", # 8. Purple
+                    "#FFC0CB", # 9. Pink
+                    "#A52A2A", # 10. Brown
+                    "#D3D3D3", # 11. Light Grey
+                    "#000000"  # 12. Black
+                 ]
+
+            # Normalized stitch iteration
+            stitches = emb_pattern.stitches
+            
+            current_color_index = 0
+            block_stitches = []
+            
+            for stitch in stitches:
+                # pyembroidery stitches are tuples (x, y, flags)
+                x, y, flags = stitch
+                
+                # Check for color change or end
+                # Use getattr to be safe with different pyembroidery versions
+                COLOR_CHANGE = getattr(pyembroidery, 'COLOR_CHANGE', 5)
+                END = getattr(pyembroidery, 'END', 6) # 6 is common for END? or maybe it's missing.
+                # Actually, usually getting NORMAL=0 is safe.
+                
+                if flags == COLOR_CHANGE:
+                    # Save current block
+                    if block_stitches:
+                        color_hex = colors[current_color_index % len(colors)]
+                        pattern_data.append({
+                            "color": color_hex,
+                            "stitches": block_stitches
+                        })
+                    
+                    # Start new block
+                    block_stitches = []
+                    current_color_index += 1
+                    continue
+                
+                # If END exists and matches, break. Or if it's high value?
+                # Just checking safe match.
+                if flags == END:
+                    break
+                    
+                # JUMP = 1, TRIM = 2. Normal = 0.
+                # If pyembroidery.NORMAL doesn't exist, assume 0.
+                if flags == 0:
+                    block_stitches.append([x, y])
+                
+            # Append final block
+            if block_stitches:
+                color_hex = colors[current_color_index % len(colors)]
+                pattern_data.append({
+                    "color": color_hex,
+                    "stitches": block_stitches
+                })
+
             return jsonify({
-                "image": f"data:image/png;base64,{encoded_string}",
+                "mode": "vector", # Signal frontend to use canvas
+                "pattern": pattern_data,
+                "bounds": bounds,
                 "stats": {
                     "stitches": stitch_count,
                     "width": width_mm,
