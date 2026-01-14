@@ -48,7 +48,7 @@ def convert_file():
                  return jsonify({'error': 'Could not parse embroidery file'}), 400
 
             # Output path
-            output_filename = os.path.splitext(safe_filename)[0] + '.' + target_format
+            output_filename = os.path.splitext(safe_filename)[0] + '.' + target_format.upper()
             output_path = os.path.join(tmpdirname, output_filename)
             
             # Write pattern
