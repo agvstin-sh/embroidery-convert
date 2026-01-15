@@ -55,21 +55,25 @@ body {
 .container {
     width: 100%;
     max-width: 480px;
-    padding: 10px;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    margin: auto;
-    margin: auto;
+    margin: 0 auto;
     transition: max-width 0.5s ease;
     /* position: relative; Removed to allow lang switch to be relative to body */
 }
 
+.container.expanded {
+    max-width: 900px;
+    width: 95%;
+}
+
 .lang-switch {
     position: absolute;
-    top: 1.5rem;
-    right: 2rem;
+    top: 1rem;
+    right: 1rem;
     font-size: 0.9rem;
     z-index: 100;
 }
@@ -104,6 +108,12 @@ h1 {
     font-weight: 700;
     margin-bottom: 0.5rem;
     letter-spacing: -0.05em;
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 2rem;
+    }
 }
 
 .highlight {
@@ -291,6 +301,12 @@ input:checked+.slider:before {
     text-align: center;
 }
 
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 .stat-item {
     background: var(--gruv-bg-0);
     border: 1px solid var(--border-color);
@@ -463,6 +479,44 @@ footer {
     margin-top: 2rem;
     color: var(--text-muted);
     font-size: 0.8rem;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /* Safety for very small screens */
+    gap: 0.3rem;
+    /* Small gap between items */
+}
+
+/* Base styles for footer items */
+.footer-separator {
+    margin: 0 0.5rem;
+    opacity: 0.5;
+}
+
+.designed-by {
+    opacity: 0.8;
+}
+
+/* Mobile Footer: Stack items */
+@media (max-width: 480px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .footer-separator {
+        display: none;
+    }
+
+    .footer-content span {
+        display: block;
+        /* Ensure they behave as blocks */
+    }
 }
 
 footer a {
@@ -490,6 +544,8 @@ footer a {
     flex-direction: column;
     gap: 1rem;
     justify-content: flex-start;
+    min-width: 0;
+    /* Allow shrinking */
 }
 
 .right-panel {
@@ -501,6 +557,8 @@ footer a {
     flex-direction: column;
     justify-content: center;
     border: 1px solid var(--border-color);
+    min-width: 0;
+    /* Allow shrinking */
 }
 
 .panel-separator {
